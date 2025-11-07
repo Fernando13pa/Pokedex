@@ -13,17 +13,17 @@ function getTemplateHomePage(name, img, nummerPokemon, typ) {
 function getTemplateDialogPokemon(name, Pokemon) {
   return `
       <div class="pokemonDialogFooter">
-      <h2> ${name} </h2>
-      <img src="${Pokemon.sprites.other.home.front_default}">
+        <h2> ${name} </h2>
+        <img src="${Pokemon.sprites.other.home.front_default}">
       </div>
-      <div class="pokemonDialogMain">
-        <div class="pokemonDialogMainFooter">
-          <a href="#">About</a>
-          <a href="#">Base Stats</a>
-          <a href="#">Evolution</a>
-          <a href="#">Moves</a>
+      <div class="pokemonDialogNav">
+            <button >About</button>
+            <button>Statics</button>
+            <button>Evolution</button>
+            <button>Moves</button>
         </div>
-        <div class="pokemonDialogMainContent">
+      <div class="pokemonDialogMain">
+        <div class="pokemonDialogMainContent" id="pokemonDialogMainContentShow">
             <p>  
                 <i>Height</i>
                 <img src="icons/height.png" alt=""> 
@@ -34,6 +34,7 @@ function getTemplateDialogPokemon(name, Pokemon) {
                 <img src="icons/weight.png" alt=""> 
                 <i>${Pokemon.weight / 10}kg</i>
             </p>
+        </div>
       </div>
     `;
 }
