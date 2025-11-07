@@ -1,0 +1,66 @@
+.pokemon-card {
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 220px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+
+.pokemon-card:hover {
+    box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transform: scale(1.1);
+}
+
+.pokemonDialogFooter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.pokemonDialogMain {
+    background-color: white;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 40px;
+    height: 59%;
+}
+
+.pokemonDialogMain a {
+    margin: 5px;
+    text-decoration: none;
+    font-size: small;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: black;
+}
+
+
+.pokemonDialogMain a:hover {
+    cursor: pointer;
+    transform: scale(1.06);
+}
+
+
+.pokemonDialogMainFooter {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #ccc;
+}
+
+
+.pokemonDialogMainContent img {
+    width: 50px;
+    height: 50px;           
+    margin-left: 5px;
+}
+
+.pokemonDialogMainContent  {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 90%;
+}
