@@ -1,6 +1,6 @@
 const BASE_URL = 'https://pokeapi.co/api/v2/pokemon?limit=40&offset=0';
 let arrayUrls = [];
-let = 6
+
 
 
 
@@ -70,6 +70,28 @@ function closeShowPokemonDialog(event) {
     if (!event.target.contains(dialog)) return;
   dialog.close();
 }
+
+
+function showStats(id) {
+   let idArray = id - 1;
+    fetchUrlStats(idArray);
+}
+
+
+async function fetchUrlStats(idArray) {
+    let response = await fetch(arrayUrls[idArray]);
+    let responseToJson = await response.json();
+    renderContentStats(responseToJson);
+}
+
+
+function renderContentStats(responseToJson) {
+    
+    document.getElementById('pokemonDialogMainContentShow').innerHTML = " ";
+    document.getElementById('pokemonDialogMainContentShow').innerHTML = getTemplateStats(responseToJson);
+   
+}
+
 
 
 

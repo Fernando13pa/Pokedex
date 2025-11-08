@@ -3,7 +3,6 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-
 }
 
 
@@ -65,8 +64,8 @@ main section {
 
 
 main img {
-    width: 130px;
-    height: 130px;
+    width: 130px   !important;
+    height: 130px!important;
 }
 
 
@@ -74,8 +73,8 @@ dialog {
     
     flex-direction: column;
     align-items: center;
-    width: 300px;
-    height: 60%;
+    /* width: 300px; */
+    height: 58%;
     border: none;
     border-radius: 10px;
     padding: 20px;
@@ -104,3 +103,7 @@ footer {
     margin: 0;
     padding: 0;
 }
+
+
+
+
