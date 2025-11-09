@@ -47,7 +47,7 @@ function renderContentHomePage(PokemonUrl) {
 
 function dialogShowPokemon(pokemonNummer) {
     fetchUrlDialog(pokemonNummer);
-    dialog.showModal();    
+    dialog.showModal();
 }
 
 
@@ -68,12 +68,12 @@ function renderContentDialog(responseToJson) {
 
 function closeShowPokemonDialog(event) {
     if (!event.target.contains(dialog)) return;
-  dialog.close();
+    dialog.close();
 }
 
 
 function showStats(id) {
-   let idArray = id - 1;
+    let idArray = id - 1;
     fetchUrlStats(idArray);
 }
 
@@ -86,12 +86,25 @@ async function fetchUrlStats(idArray) {
 
 
 function renderContentStats(responseToJson) {
-    
+    let stats = responseToJson.stats.map(element => element);
+    console.log(stats);
     document.getElementById('pokemonDialogMainContentShow').innerHTML = " ";
-    document.getElementById('pokemonDialogMainContentShow').innerHTML = getTemplateStats(responseToJson);
-   
+    for (let i = 0; i < stats.length; i++) {
+        document.getElementById('pokemonDialogMainContentShow').innerHTML += getTemplateStats(stats[i], responseToJson);
+    }
 }
 
+
+function showEvolution(Pokemon) {
+    console.log(Pokemon);
+    
+    fetchUrlEvolution();
+}
+
+
+function fetchUrlEvolution(params) {
+
+}
 
 
 

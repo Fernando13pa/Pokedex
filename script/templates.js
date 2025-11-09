@@ -17,7 +17,7 @@ function getTemplateDialogPokemon(name, Pokemon) {
       <div class="pokemonDialogNav">
             <button onclick="dialogShowPokemon(${Pokemon.id})">About</button>
             <button onclick="showStats(${Pokemon.id})" >Stats</button>
-            <button>Evolution</button>
+            <button onclick ="showEvolution('${name}')">Evolution</button>
             <button>Moves</button>
         </div>
       <div class="pokemonDialogMain">
@@ -38,18 +38,16 @@ function getTemplateDialogPokemon(name, Pokemon) {
 }
 
 
-function getTemplateStats(Pokemon) {
+function getTemplateStats(Pokemon, responseToJson) {
   return `
       <div class="statsContainer">  
-        ${Pokemon.stats.map(stat => `
             <div class="statRow"> 
-                <span class="statName">${stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1)}</span>
-                <span class="statValue">${stat.base_stat}</span>
-                <div class="progress" >
-                  <div class="progress-bar  progress-bar-striped" role="progressbar" style="width:${stat.base_stat}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+              <span class="statName">${Pokemon.stat.name.charAt(0).toUpperCase() + Pokemon.stat.name.slice(1)}</span>
+              <span class="statValue">${Pokemon.base_stat}</span>
+              <div class="progress" >
+                <div class="progress-bar ${responseToJson.types[0].type.name}  progress-bar-striped" role="progressbar" style="width:${Pokemon.base_stat}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
             </div>  
-        `).join('')}
       </div>
     `;
 }
