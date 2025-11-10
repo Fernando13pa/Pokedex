@@ -2,10 +2,6 @@ const BASE_URL = 'https://pokeapi.co/api/v2/pokemon?limit=40&offset=0';
 let arrayUrls = [];
 
 
-
-
-
-
 function loadContentFunc() {
     fetchData();
 }
@@ -87,24 +83,45 @@ async function fetchUrlStats(idArray) {
 
 function renderContentStats(responseToJson) {
     let stats = responseToJson.stats.map(element => element);
-    console.log(stats);
     document.getElementById('pokemonDialogMainContentShow').innerHTML = " ";
+
     for (let i = 0; i < stats.length; i++) {
         document.getElementById('pokemonDialogMainContentShow').innerHTML += getTemplateStats(stats[i], responseToJson);
     }
 }
 
 
-function showEvolution(Pokemon) {
-    console.log(Pokemon);
-    
-    fetchUrlEvolution();
+function showEvolution(pokemon) {
+    fetchUrlEvolution(pokemon);
 }
 
 
-function fetchUrlEvolution(params) {
+async function fetchUrlEvolution(pokemonName) {
+    let response = await fetch('https://pokeapi.co/api/v2/evolution-chain/');
+    let responseToJson = await response.json();
+    console.log(responseToJson);
+    filterUrlEvolution(responseToJson, pokemonName);
 
 }
+
+
+function filterUrlEvolution(responseToJson, pokemonName) {
+    let evolutionUrls = responseToJson;
+    console.log(evolutionUrls + "1");//muss nochn bearbeitet werden url holen
+    // for (let i = 0; i < evolutionUrls.length; i++) {
+    //     fetchEvolutionChain(evolutionUrls[i], pokemonName);
+    // }   
+
+
+}
+
+
+
+// function renderContentEvolution(responseToJson, pokemonName) {
+//     console.log(responseToJson);
+//     document.getElementById('pokemonDialogMainContentShow').innerHTML = " ";
+//     document.getElementById('pokemonDialogMainContentShow').innerHTML += getTemplateEvolution(responseToJson, pokemonName);
+// }
 
 
 
