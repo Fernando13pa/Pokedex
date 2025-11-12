@@ -1,6 +1,6 @@
 const BASE_URL = 'https://pokeapi.co/api/v2/pokemon?limit=40&offset=0';
 let arrayUrls = [];
-
+let arrayEvolution = [];
 
 function loadContentFunc() {
     fetchData();
@@ -91,28 +91,25 @@ function renderContentStats(responseToJson) {
 }
 
 
-function showEvolution(pokemon) {
-    fetchUrlEvolution(pokemon);
+function showEvolution(pokemonName) {
+    fetchBaseUrlEvolution(pokemonName);
 }
 
 
-async function fetchUrlEvolution(pokemonName) {
+async function fetchBaseUrlEvolution(pokemonName) {
     let response = await fetch('https://pokeapi.co/api/v2/evolution-chain/');
     let responseToJson = await response.json();
-    console.log(responseToJson);
-    filterUrlEvolution(responseToJson, pokemonName);
+    let evolutionUrl = responseToJson.results;
 
+    filterUrlEvolution(evolutionUrl, pokemonName);
 }
 
 
-function filterUrlEvolution(responseToJson, pokemonName) {
-    let evolutionUrls = responseToJson;
-    console.log(evolutionUrls + "1");//muss nochn bearbeitet werden url holen
-    // for (let i = 0; i < evolutionUrls.length; i++) {
-    //     fetchEvolutionChain(evolutionUrls[i], pokemonName);
-    // }   
-
-
+function filterUrlEvolution(evolutionUrl, pokemonName) {
+    let urls = evolutionUrl.map(element => element.url);
+    arrayEvolution = urls;
+    console.log(arrayEvolution);
+    
 }
 
 
