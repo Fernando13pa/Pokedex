@@ -1,7 +1,8 @@
 const BASE_URL = 'https://pokeapi.co/api/v2/pokemon?limit=40&offset=0';
 let arrayUrls = [];
-const  arrayEvolutionCounter = 19;
-let pokemonNameEvolution = [];
+const arrayEvolutionCounter = 19;
+
+
 
 function loadContentFunc() {
     fetchData();
@@ -45,7 +46,6 @@ function renderContentHomePage(PokemonUrl) {
 function dialogShowPokemon(pokemonNummer) {
     fetchUrlDialog(pokemonNummer);
     dialog.showModal();
-    // fetchBaseUrlEvolution();
 }
 
 
@@ -86,6 +86,7 @@ async function fetchUrlStats(idArray) {
 function renderContentStats(responseToJson) {
     let stats = responseToJson.stats.map(element => element);
     document.getElementById('pokemonDialogMainContentShow').innerHTML = " ";
+    document.getElementById('pokemonDialogMainContentShow').style = 'flex-direction: ';
 
     for (let i = 0; i < stats.length; i++) {
         document.getElementById('pokemonDialogMainContentShow').innerHTML += getTemplateStats(stats[i], responseToJson);
@@ -95,47 +96,53 @@ function renderContentStats(responseToJson) {
 
 async function showEvolution(pokemonName) {
     for (let i = 1; i <= arrayEvolutionCounter; i++) {
-        // await fetchBaseUrlEvolution(i, pokemonName);
+
         let response = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + i);
         let responseToJson = await response.json();
-        
-        console.log(responseToJson);
-        
         let pokemonNameEvolution = responseToJson.chain.species.name;
         let evolvesTo = responseToJson.chain.evolves_to[0].species.name;
-        let evolvesToSecond = responseToJson.chain.evolves_to[0].evolves_to[0].species.name;
-        console.log(pokemonNameEvolution, evolvesTo, evolvesToSecond);
-        if (pokemonName === pokemonNameEvolution || pokemonName === evolvesTo || pokemonName === evolvesToSecond) {
+        let evolvesToSecond = responseToJson.chain.evolves_to[0]?.evolves_to[0]?.species.name;
+
+        if (pokemonName == pokemonNameEvolution || pokemonName == evolvesTo || pokemonName == evolvesToSecond) {
+            await fetchUrlEvolutionPokemon(pokemonNameEvolution, evolvesTo, evolvesToSecond);
             break;
         }
-       
     }
-    
 }
 
 
-async function fetchBaseUrlEvolution( i, pokemonName) {
-    
-    
-    
 
+async function fetchUrlEvolutionPokemon(pokemonNameEvolution, evolvesTo, evolvesToSecond) {
+    let response = await fetch('https://pokeapi.co/api/v2/pokemon/' + pokemonNameEvolution);
+    let responseToJson = await response.json();
+
+
+    let arrayEvolutionsData = [{ name: pokemonNameEvolution, img: responseToJson.sprites.other.showdown.front_default }];
+
+    if (evolvesTo) {
+        let responseEvolvesTo = await fetch('https://pokeapi.co/api/v2/pokemon/' + evolvesTo);
+        let responseToJsonEvolvesTo = await responseEvolvesTo.json();
+        arrayEvolutionsData.push({ name: evolvesTo, img: responseToJsonEvolvesTo.sprites.other.showdown.front_default });
+    }
+    if (evolvesToSecond) {
+        let responseEvolvesToSecond = await fetch('https://pokeapi.co/api/v2/pokemon/' + evolvesToSecond);
+        let responseToJsonEvolvesToSecond = await responseEvolvesToSecond.json();
+        arrayEvolutionsData.push({ name: evolvesToSecond, img: responseToJsonEvolvesToSecond.sprites.other.showdown.front_default });
+    }
+    console.log(arrayEvolutionsData);
+    renderContentDialogEvolution(arrayEvolutionsData);
 }
 
 
-// function filterUrlEvolution(evolutionUrl, pokemonName) {
-//     let urls = evolutionUrl.map(element => element.url);
-//     arrayEvolution = urls;
-    
-    
-// }
 
+function renderContentDialogEvolution(arrayEvolutionsData) {
+    document.getElementById('pokemonDialogMainContentShow').innerHTML = " ";
+    for (let i = 0; i < arrayEvolutionsData.length; i++) {
+        document.getElementById('pokemonDialogMainContentShow').innerHTML += getTemplateEvolution(arrayEvolutionsData[i].name.charAt(0).toUpperCase() + arrayEvolutionsData[i].name.slice(1), arrayEvolutionsData[i].img);
+    }
 
-
-// function renderContentEvolution(responseToJson, pokemonName) {
-//     console.log(responseToJson);
-//     document.getElementById('pokemonDialogMainContentShow').innerHTML = " ";
-//     document.getElementById('pokemonDialogMainContentShow').innerHTML += getTemplateEvolution(responseToJson, pokemonName);
-// }
+    document.getElementById('pokemonDialogMainContentShow').style = 'flex-direction: unset';
+}
 
 
 

@@ -17,7 +17,7 @@ function getTemplateDialogPokemon(name, pokemon) {
       <div class="pokemonDialogNav">
             <button onclick="dialogShowPokemon(${pokemon.id})">About</button>
             <button onclick="showStats(${pokemon.id})" >Stats</button>
-            <button onclick ="showEvolution('${name}')">Evolution</button>
+            <button onclick ="showEvolution('${pokemon.name}')">Evolution</button>
             <button>Moves</button>
         </div>
       <div class="pokemonDialogMain">
@@ -48,6 +48,15 @@ function getTemplateStats(Pokemon, responseToJson) {
                 <div class="progress-bar ${responseToJson.types[0].type.name}  progress-bar-striped" role="progressbar" style="width:${Pokemon.base_stat}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>  
+      </div>
+    `;
+}
+
+function getTemplateEvolution(name, img) {
+  return `
+      <div class="evolutionCard">  
+            <h5> ${name} </h5>
+            <img src="${img}">
       </div>
     `;
 }
