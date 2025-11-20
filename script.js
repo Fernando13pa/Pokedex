@@ -4,8 +4,16 @@ const arrayEvolutionCounter = 19;
 
 
 
-function loadContentFunc() {
-    fetchData();
+async function loadContentFunc() {
+    await fetchData();
+    loadingSpinner();
+}
+
+
+function loadingSpinner() {
+    document.getElementById('main-loader').style = 'align-content: center;';
+    document.getElementById('content').innerHTML = getlopadingspinnerTemplate();
+    setTimeout(forRenderPokemonHomePage, 2000);
 }
 
 
@@ -15,30 +23,37 @@ async function fetchData() {
     console.log(responseToJson);
 
     array = responseToJson.results;
-    filterUrl(array)
+    await filterUrl(array)
 }
 
 
-function filterUrl(filterHomePageUrls) {
+async function filterUrl(filterHomePageUrls) {
     let urls = filterHomePageUrls.map(element => element.url);
     arrayUrls = urls;
-    forRenderPokemonHomePage();
+
+
 }
 
 
 async function forRenderPokemonHomePage() {
+    document.getElementById('main-loader').style = ' ';
+    document.getElementById('main-loader').style = 'height: 100%;';
+    document.getElementById('content').innerHTML = " ";
     for (let i = 0; i < arrayUrls.length; i++) {
         await fetchUrl(i);
     }
 }
 
+
 async function fetchUrl(i) {
     let response = await fetch(arrayUrls[i]);
     let responseToJson = await response.json();
-    renderContentHomePage(responseToJson);
+    await renderContentHomePage(responseToJson);
 }
 
-function renderContentHomePage(PokemonUrl) {
+
+async function renderContentHomePage(PokemonUrl) {
+
     document.getElementById('content').innerHTML += getTemplateHomePage(PokemonUrl.name.charAt(0).toUpperCase() + PokemonUrl.name.slice(1), PokemonUrl.sprites.other.home.front_default, PokemonUrl.id, PokemonUrl.types[0].type.name);
 }
 
@@ -59,6 +74,7 @@ async function fetchUrlDialog(pokemonNummer) {
 function renderContentDialog(responseToJson) {
     document.getElementById('dialog').innerHTML = " ";
     document.getElementById('dialog').classList = " ";
+    document.getElementById('dialog').style = 'width: 35%;';
     document.getElementById('dialog').innerHTML = getTemplateDialogPokemon(responseToJson.name.charAt(0).toUpperCase() + responseToJson.name.slice(1), responseToJson);
     document.getElementById('dialog').classList.add(responseToJson.types[0].type.name);
 }
@@ -87,7 +103,7 @@ function renderContentStats(responseToJson) {
     let stats = responseToJson.stats.map(element => element);
     document.getElementById('pokemonDialogMainContentShow').innerHTML = " ";
     document.getElementById('pokemonDialogMainContentShow').style = 'flex-direction: ';
-
+    document.getElementById('dialog').style = 'width: 35%;';
     for (let i = 0; i < stats.length; i++) {
         document.getElementById('pokemonDialogMainContentShow').innerHTML += getTemplateStats(stats[i], responseToJson);
     }
@@ -111,7 +127,6 @@ async function showEvolution(pokemonName) {
 }
 
 
-
 async function fetchUrlEvolutionPokemon(pokemonNameEvolution, evolvesTo, evolvesToSecond) {
     let response = await fetch('https://pokeapi.co/api/v2/pokemon/' + pokemonNameEvolution);
     let responseToJson = await response.json();
@@ -129,10 +144,8 @@ async function fetchUrlEvolutionPokemon(pokemonNameEvolution, evolvesTo, evolves
         let responseToJsonEvolvesToSecond = await responseEvolvesToSecond.json();
         arrayEvolutionsData.push({ name: evolvesToSecond, img: responseToJsonEvolvesToSecond.sprites.other.showdown.front_default });
     }
-    console.log(arrayEvolutionsData);
     renderContentDialogEvolution(arrayEvolutionsData);
 }
-
 
 
 function renderContentDialogEvolution(arrayEvolutionsData) {
@@ -142,6 +155,7 @@ function renderContentDialogEvolution(arrayEvolutionsData) {
     }
 
     document.getElementById('pokemonDialogMainContentShow').style = 'flex-direction: unset';
+    document.getElementById('dialog').style = 'width: 45%;';
 }
 
 

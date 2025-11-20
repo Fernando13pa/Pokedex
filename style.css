@@ -47,10 +47,37 @@ header input {
 }
 
 
+.loader {
+    border: 24px solid #FFF;
+    border-color: #FF3D00 #FF3D00 #fff #fff;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite
+}
+
+.loader:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -125%);
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+
 main {
     width: 100%;
     background-color: #0c3947;
-    height: 100%;
+    height: 100vh;
 }
 
 
@@ -64,16 +91,16 @@ main section {
 
 
 main img {
-    width: 130px   !important;
-    height: 130px!important;
+    width: 130px !important;
+    height: 130px !important;
 }
 
 
 dialog {
-    
+
     flex-direction: column;
     align-items: center;
-    /* width: 300px; */
+    width: 35%;
     height: 58%;
     border: none;
     border-radius: 10px;
@@ -103,7 +130,3 @@ footer {
     margin: 0;
     padding: 0;
 }
-
-
-
-

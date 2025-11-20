@@ -1,44 +1,151 @@
-.grass{
-    background-color:cadetblue ;
+.grass {
+    background-color: cadetblue;
 }
 
 
-.fire{
-    background-color:chocolate;
+.button-grass {
+    background-color: white;
 }
 
 
-.water{
-    background-color:cornflowerblue;
+.button-grass:hover {
+    background-color: cadetblue;
+    transform: scale(1.06);
+    cursor: pointer;
 }
 
 
-.bug{
-    background-color:darkolivegreen;
+.fire {
+    background-color: chocolate;
 }
 
 
-.normal{
-    background-color:wheat;
+.button-fire {
+    background-color: white;
 }
 
 
-.poison{
-    background-color:darkslateblue;
+.button-fire:hover {
+    background-color: chocolate;
+    transform: scale(1.06);
+    cursor: pointer;
 }
 
 
-.electric{
-    background-color:gold;
+.water {
+    background-color: cornflowerblue;
 }
 
 
-.ground{
-    background-color:sandybrown;
+.button-water {
+    background-color: white;
 }
 
 
-.fairy{
-    background-color:pink;
+.button-water:hover {
+    background-color: cornflowerblue;
+    transform: scale(1.06);
+    cursor: pointer;
 }
 
+
+.bug {
+    background-color: darkolivegreen;
+}
+
+
+.button-bug {
+    background-color: white;
+}
+
+
+.button-bug:hover {
+    background-color: darkolivegreen;
+    transform: scale(1.06);
+    cursor: pointer;
+}
+
+
+.normal {
+    background-color: wheat;
+}
+
+
+.button-normal {
+    background-color: white;
+}
+
+
+.button-normal:hover {
+    background-color: wheat;
+    transform: scale(1.06);
+    cursor: pointer;
+}
+
+
+.poison {
+    background-color: darkslateblue;
+}
+
+
+.button-poison {
+    background-color: white;
+}
+
+
+.button-poison:hover {
+    background-color: darkslateblue;
+    transform: scale(1.06);
+    cursor: pointer;
+}
+
+
+.electric {
+    background-color: gold;
+}
+
+
+.button-electric {
+    background-color: white;
+}
+
+
+.button-electric:hover {
+    background-color: gold;
+    transform: scale(1.06);
+    cursor: pointer;
+}
+
+
+.ground {
+    background-color: sandybrown;
+}
+
+
+.button-ground {
+    background-color: white;
+}
+
+
+.button-ground:hover {
+    background-color: sandybrown;
+    transform: scale(1.06);
+    cursor: pointer;
+}
+
+
+.fairy {
+    background-color: pink;
+}
+
+
+.button-fairy {
+    background-color: white;
+}
+
+
+.button-fairy:hover {
+    background-color: pink;
+    transform: scale(1.06);
+    cursor: pointer;
+}

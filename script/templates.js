@@ -1,3 +1,11 @@
+function getlopadingspinnerTemplate() {
+  return `
+    <span class="loader"></span>
+    `;
+}
+
+
+
 function getTemplateHomePage(name, img, nummerPokemon, typ) {
   return `
     <div class="pokemon-card  ${typ}"  onclick="dialogShowPokemon(${nummerPokemon})"> 
@@ -8,6 +16,7 @@ function getTemplateHomePage(name, img, nummerPokemon, typ) {
 }
 
 
+
 function getTemplateDialogPokemon(name, pokemon) {
   return `
       <div class="pokemonDialogFooter">
@@ -15,10 +24,9 @@ function getTemplateDialogPokemon(name, pokemon) {
         <img src="${pokemon.sprites.other.home.front_default}">
       </div>
       <div class="pokemonDialogNav">
-            <button onclick="dialogShowPokemon(${pokemon.id})">About</button>
-            <button onclick="showStats(${pokemon.id})" >Stats</button>
-            <button onclick ="showEvolution('${pokemon.name}')">Evolution</button>
-            <button>Moves</button>
+            <button onclick="dialogShowPokemon(${pokemon.id})" class ="button-${pokemon.types[0].type.name}">About</button>
+            <button onclick="showStats(${pokemon.id})" class ="button-${pokemon.types[0].type.name}"  >Stats</button>
+            <button onclick ="showEvolution('${pokemon.name}')" class ="button-${pokemon.types[0].type.name}">Evolution</button>
         </div>
       <div class="pokemonDialogMain">
         <div class="pokemonDialogMainContent" id="pokemonDialogMainContentShow">
@@ -38,6 +46,7 @@ function getTemplateDialogPokemon(name, pokemon) {
 }
 
 
+
 function getTemplateStats(Pokemon, responseToJson) {
   return `
       <div class="statsContainer">  
@@ -51,6 +60,8 @@ function getTemplateStats(Pokemon, responseToJson) {
       </div>
     `;
 }
+
+
 
 function getTemplateEvolution(name, img) {
   return `
