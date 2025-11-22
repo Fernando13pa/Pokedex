@@ -17,6 +17,35 @@ function loadingSpinner() {
 }
 
 
+function searchPokemon() {
+    let input = document.getElementById('searchBar').value.toLowerCase();
+    if (input === "") {
+        forRenderPokemonHomePage();
+        return;
+    } else if (input.length > 2) {
+        document.getElementById('content').innerHTML = " ";
+        for (let i = 0; i < arrayUrls.length; i++) {
+            fetch(arrayUrls[i])
+                .then(response => response.json())
+                .then(function (pokemon) {
+                    if (pokemon.name.toLowerCase().includes(input)) {
+                        document.getElementById('content').innerHTML += getTemplateHomePage(pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1), pokemon.sprites.other.home.front_default, pokemon.id, pokemon.types[0].type.name);
+                        input.value = " ";
+                    } else if (!pokemon.name.toLowerCase().includes(input) && i === arrayUrls.length - 1 && document.getElementById('content').innerHTML === " ") {
+                        document.getElementById('content').innerHTML = `<h2 class="noResults"> No results found for "${input}" </h2>`;
+                        input.value = " ";
+                    }
+                });
+            document.getElementById('main-loader').style = 'height: 100vh;';
+            input.value = " ";
+        }
+    }
+    input.value = " ";
+    document.getElementById('loadMoreContainer').innerHTML = " ";
+
+}
+
+
 async function fetchData() {
     let response = await fetch(BASE_URL + 'json');
     let responseToJson = await response.json();
@@ -41,7 +70,39 @@ async function forRenderPokemonHomePage() {
     document.getElementById('content').innerHTML = " ";
     for (let i = 0; i < arrayUrls.length; i++) {
         await fetchUrl(i);
+        if (i === 19) {
+            document.getElementById('loadMoreContainer').innerHTML = getTemplateloadIcon();
+            break;
+        }
     }
+}
+
+
+async function loadMorePokemon() {
+    document.getElementById('loadMoreContainer').innerHTML = " ";
+    document.getElementById('loadMoreContainer').innerHTML = getButtonLoadMoreTemplate();
+    setTimeout(forLoadMorePokemon, 2000);
+}
+
+
+async function forLoadMorePokemon() {
+    document.getElementById('loadMoreContainer').innerHTML = " ";
+
+    for (let i = 20; i < arrayUrls.length; i++) {
+        await fetchUrl(i);
+    }
+    document.getElementById('content').innerHTML += getButtonLoadLessTemplate();
+}
+
+
+function animation() {
+    document.getElementById('loadLessSpinner').style = "animation: spin 1s linear infinite;";
+    setTimeout(reloadPage, 2000);
+}
+
+
+function reloadPage() {
+    location.reload();
 }
 
 

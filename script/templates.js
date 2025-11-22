@@ -73,3 +73,33 @@ function getTemplateEvolution(name, img) {
 }
 
 
+
+function getTemplateloadIcon(params) {
+    return `
+     <div class="loadMoreContainer">
+        <img src="icons/pikachu-loadmore.png" alt="" onclick="loadMorePokemon()">
+     </div>
+
+    `;
+}
+
+
+function getButtonLoadMoreTemplate() {
+  return `
+    <div class="loadMoreContainer">
+         <span id="loadMoreButton"  class="loader-more"></span>
+    </div>
+    `;
+}
+
+
+function getButtonLoadLessTemplate() {
+  return `
+    <div class="loadMoreContainer">
+         <div class="pokemon" onclick= "animation()" id="loadLessSpinner">
+          </div>
+    </div>
+    `;
+}
+
+// "location.reload()"
