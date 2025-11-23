@@ -93,8 +93,8 @@ main section {
 
 
 main img {
-    width: 130px !important;
-    height: 130px !important;
+    width: 100px !important;
+    height: 100px !important;
 }
 
 
@@ -171,6 +171,9 @@ footer {
     header input {
         margin: 10px 0 0 0;
     } 
+   .pokemonDialogMainContent {
+        flex-direction: column !important;
+    }
 }
 
 

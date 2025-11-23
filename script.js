@@ -102,7 +102,8 @@ function animation() {
 
 
 function reloadPage() {
-    location.reload();
+    // location.reload();
+    window.location.reload(true);
 }
 
 
