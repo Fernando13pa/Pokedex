@@ -22,22 +22,27 @@
             <img src="imgs/pokemon_header.png" alt="">
             <h1>Pokedex</h1>
         </div>
-        <input type="text" id="searchBar" onkeyup="searchPokemon()" pattern="[A-Za-z]{3,}" required placeholder="Search Pokemon...">
+        <input type="text" id="searchBar" onkeyup="searchPokemon()" pattern="[A-Za-z]{3,}" required
+            placeholder="Search Pokemon...">
     </header>
+
     <dialog id="dialog" onclick="closeShowPokemonDialog(event)">
 
     </dialog>
+
     <main id="main-loader">
+
 
         <section id="content">
 
         </section>
 
-
     </main>
 
-    <div id="loadMoreContainer">
+    <div id="loadMoreContainer" class="loadMoreContainer">
+        
     </div>
+
     <footer>
         <img src="imgs/logo Developer.png" alt="">
     </footer>

@@ -12,6 +12,7 @@
     background-color: cadetblue;
     transform: scale(1.06);
     cursor: pointer;
+    flex-grow: 1;
 }
 
 

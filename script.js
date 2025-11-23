@@ -91,7 +91,7 @@ async function forLoadMorePokemon() {
     for (let i = 20; i < arrayUrls.length; i++) {
         await fetchUrl(i);
     }
-    document.getElementById('content').innerHTML += getButtonLoadLessTemplate();
+    document.getElementById('loadMoreContainer').innerHTML += getButtonLoadLessTemplate();
 }
 
 
@@ -115,7 +115,7 @@ async function fetchUrl(i) {
 
 async function renderContentHomePage(PokemonUrl) {
 
-    document.getElementById('content').innerHTML += getTemplateHomePage(PokemonUrl.name.charAt(0).toUpperCase() + PokemonUrl.name.slice(1), PokemonUrl.sprites.other.home.front_default, PokemonUrl.id, PokemonUrl.types[0].type.name);
+    document.getElementById('content').innerHTML += getTemplateHomePage(PokemonUrl.name.charAt(0).toUpperCase() + PokemonUrl.name.slice(1), PokemonUrl.sprites.other.home.front_default, PokemonUrl.id, PokemonUrl.types[0].type.name, PokemonUrl.types[1]?.type.name);
 }
 
 
@@ -135,7 +135,7 @@ async function fetchUrlDialog(pokemonNummer) {
 function renderContentDialog(responseToJson) {
     document.getElementById('dialog').innerHTML = " ";
     document.getElementById('dialog').classList = " ";
-    document.getElementById('dialog').style = 'width: 35%;';
+    // document.getElementById('dialog').style = 'width: 35%;';
     document.getElementById('dialog').innerHTML = getTemplateDialogPokemon(responseToJson.name.charAt(0).toUpperCase() + responseToJson.name.slice(1), responseToJson);
     document.getElementById('dialog').classList.add(responseToJson.types[0].type.name);
 }
@@ -164,7 +164,7 @@ function renderContentStats(responseToJson) {
     let stats = responseToJson.stats.map(element => element);
     document.getElementById('pokemonDialogMainContentShow').innerHTML = " ";
     document.getElementById('pokemonDialogMainContentShow').style = 'flex-direction: ';
-    document.getElementById('dialog').style = 'width: 35%;';
+    // document.getElementById('dialog').style = 'width: 35%;';
     for (let i = 0; i < stats.length; i++) {
         document.getElementById('pokemonDialogMainContentShow').innerHTML += getTemplateStats(stats[i], responseToJson);
     }
@@ -216,7 +216,7 @@ function renderContentDialogEvolution(arrayEvolutionsData) {
     }
 
     document.getElementById('pokemonDialogMainContentShow').style = 'flex-direction: unset';
-    document.getElementById('dialog').style = 'width: 45%;';
+    // document.getElementById('dialog').style = 'width: 45%;';
 }
 
 

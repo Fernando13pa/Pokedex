@@ -6,11 +6,15 @@ function getlopadingspinnerTemplate() {
 
 
 
-function getTemplateHomePage(name, img, nummerPokemon, typ) {
+function getTemplateHomePage(name, img, nummerPokemon, typ, typ2 = '') {
   return `
     <div class="pokemon-card  ${typ}"  onclick="dialogShowPokemon(${nummerPokemon})"> 
        <b>Nr.${nummerPokemon}</b><h3> ${name} </h3>
          <img src="${img}">
+          <div class="typeContainer">
+          <img src="icons/${typ}.ico" alt=""> 
+          ${typ2 ? `<img src="icons/${typ2}.ico" alt="">` : ''}
+          </div>
     </div>
     `;
 }
@@ -76,12 +80,12 @@ function getTemplateEvolution(name, img) {
 
 function getTemplateloadIcon(params) {
     return `
-     <div class="loadMoreContainer">
+     
         <img src="icons/pikachu-loadmore.png" alt="" onclick="loadMorePokemon()">
-     </div>
-
+     
     `;
 }
+
 
 
 function getButtonLoadMoreTemplate() {
@@ -93,13 +97,14 @@ function getButtonLoadMoreTemplate() {
 }
 
 
+
 function getButtonLoadLessTemplate() {
   return `
-    <div class="loadMoreContainer">
+    
          <div class="pokemon" onclick= "animation()" id="loadLessSpinner">
           </div>
-    </div>
+    
     `;
 }
 
-// "location.reload()"
+

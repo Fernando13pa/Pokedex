@@ -6,6 +6,7 @@
     width: 220px !important;
     margin: 10px;
     cursor: pointer;
+    transition: transform 0.2s;
 }
 
 
@@ -14,10 +15,25 @@
     transform: scale(1.1);
 }
 
+
 .pokemonDialogFooter {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+
+.typeContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+
+.typeContainer img {
+    width: 40px !important;
+    height: 40px !important;
 }
 
 
@@ -34,15 +50,18 @@
     background-color: white;
     border: none;
     font-family: sans-serif;
+    flex-grow: 1;
 
 }
+
 
 .pokemonDialogMain {
     background-color: white;
     border-radius: 0px 0 20px 20px;
-    height: 50%;
+    
     margin-top: 12px;
 }
+
 
 .pokemonDialogMain a {
     margin: 5px;
@@ -72,6 +91,7 @@
     height: 50px;
     margin-left: 5px;
 }
+
 
 .pokemonDialogMainContent {
     display: flex;
@@ -131,6 +151,7 @@
 
 }
 
+
 .loader-more {
     width: 48px;
     height: 48px;
@@ -140,6 +161,7 @@
     transform: rotate(45deg);
     box-sizing: border-box;
 }
+
 
 .loader-more::before {
     content: "";
@@ -174,7 +196,6 @@
 }
 
 
-
 .pokemon {
     position: relative;
     height: 100px;
@@ -185,6 +206,7 @@
     
 }
 
+
 .pokemon::before {
     content: '';
     position: absolute;
@@ -194,6 +216,7 @@
     top: 50px;
     transform: translatey(-50%);
 }
+
 
 .pokemon::after {
     content: '';
@@ -208,6 +231,7 @@
     box-shadow: inset 0 0 0 8px black, inset 0 0 0 10px white, inset 0 0 0 12px black;
 
 }
+
 
 /* Spin Animation */
 @keyframes spin {
