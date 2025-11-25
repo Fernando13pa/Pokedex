@@ -21,6 +21,37 @@ function getTemplateHomePage(name, img, nummerPokemon, typ, typ2 = '') {
 
 
 
+function getTemplateloadIcon(params) {
+    return `
+     
+        <img src="icons/pikachu-loadmore.png" alt="" onclick="loadMorePokemon()">
+     
+    `;
+}
+
+
+
+function getButtonLoadMoreTemplate() {
+  return `
+    <div class="loadMoreContainer">
+         <span id="loadMoreButton"  class="loader-more"></span>
+    </div>
+    `;
+}
+
+
+
+function getButtonLoadLessTemplate() {
+  return `
+    
+         <div class="pokemon" onclick= "animation()" id="loadLessSpinner">
+          </div>
+    
+    `;
+}
+
+
+
 function getTemplateDialogPokemon(name, pokemon) {
   return `
       <div class="pokemonDialogFooter">
@@ -30,7 +61,7 @@ function getTemplateDialogPokemon(name, pokemon) {
       <div class="pokemonDialogNav">
             <button onclick="dialogShowPokemon(${pokemon.id})" class ="button-${pokemon.types[0].type.name}">About</button>
             <button onclick="showStats(${pokemon.id})" class ="button-${pokemon.types[0].type.name}"  >Stats</button>
-            <button onclick ="showEvolution('${pokemon.name}')" class ="button-${pokemon.types[0].type.name}">Evolution</button>
+            <button onclick ="showEvolution('${pokemon.name},${pokemon.id}')" class ="button-${pokemon.types[0].type.name}">Evolution</button>
         </div>
       <div class="pokemonDialogMain">
         <div class="pokemonDialogMainContent" id="pokemonDialogMainContentShow">
@@ -78,33 +109,14 @@ function getTemplateEvolution(name, img) {
 
 
 
-function getTemplateloadIcon(params) {
-    return `
-     
-        <img src="icons/pikachu-loadmore.png" alt="" onclick="loadMorePokemon()">
-     
-    `;
-}
 
 
 
-function getButtonLoadMoreTemplate() {
-  return `
-    <div class="loadMoreContainer">
-         <span id="loadMoreButton"  class="loader-more"></span>
-    </div>
-    `;
-}
 
 
 
-function getButtonLoadLessTemplate() {
-  return `
-    
-         <div class="pokemon" onclick= "animation()" id="loadLessSpinner">
-          </div>
-    
-    `;
-}
+
+
+
 
 
