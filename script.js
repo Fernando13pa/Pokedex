@@ -167,11 +167,10 @@ async function showEvolution(pokemonName) {
     for (let i = 0; i < pokemonDataEvolution.length; i++) {
 
         let pokemonNameEvolution = pokemonDataEvolution[i].chain.species.name;
-        let evolvesTo =  pokemonDataEvolution[i].chain.evolves_to[0].species.name;
-        let evolvesToSecond =  pokemonDataEvolution[i].chain.evolves_to[0]?.evolves_to[0]?.species.name;
+        let evolvesTo = pokemonDataEvolution[i].chain.evolves_to[0].species.name;
+        let evolvesToSecond = pokemonDataEvolution[i].chain.evolves_to[0]?.evolves_to[0]?.species.name;
 
         if (pokemonName == pokemonNameEvolution || pokemonName == evolvesTo || pokemonName == evolvesToSecond) {
-            // await fetchUrlEvolutionPokemon(pokemonNameEvolution, evolvesTo, evolvesToSecond);
             filterDataEvolution(pokemonNameEvolution, evolvesTo, evolvesToSecond);
             break;
         }
@@ -181,24 +180,18 @@ async function showEvolution(pokemonName) {
 
 
 function filterDataEvolution(pokemonNameEvolution, evolvesTo, evolvesToSecond) {
-    // let response = await fetch('https://pokeapi.co/api/v2/pokemon/' + pokemonNameEvolution);
-    // let responseToJson = await response.json();
-
-
-    // let arrayEvolutionsData = [{ name: pokemonNameEvolution, img: responseToJson.sprites.other.showdown.front_default }];
-
-    // if (evolvesTo) {
-    //     let responseEvolvesTo = await fetch('https://pokeapi.co/api/v2/pokemon/' + evolvesTo);
-    //     let responseToJsonEvolvesTo = await responseEvolvesTo.json();
-    //     arrayEvolutionsData.push({ name: evolvesTo, img: responseToJsonEvolvesTo.sprites.other.showdown.front_default });
-    // }
-    // if (evolvesToSecond) {
-    //     let responseEvolvesToSecond = await fetch('https://pokeapi.co/api/v2/pokemon/' + evolvesToSecond);
-    //     let responseToJsonEvolvesToSecond = await responseEvolvesToSecond.json();
-    //     arrayEvolutionsData.push({ name: evolvesToSecond, img: responseToJsonEvolvesToSecond.sprites.other.showdown.front_default });
-    // }
-    // renderContentDialogEvolution(arrayEvolutionsData);
-    
+    let findPokemon = pokemonsData.find(element => element["name"] === pokemonNameEvolution);
+    let arrayEvolutionsData = [{ name: findPokemon.name, img: findPokemon.sprites.other.showdown.front_default }];
+    if (evolvesTo) {
+        let findPokemon2 = pokemonsData.find(element => element["name"] === evolvesTo);
+        arrayEvolutionsData.push({ name: findPokemon2.name, img: findPokemon2.sprites.other.showdown.front_default });
+    }
+    if (evolvesToSecond) {
+        let findPokemon3 = pokemonsData.find(element => element["name"] === evolvesToSecond)
+        arrayEvolutionsData.push({ name: findPokemon3.name, img: findPokemon3.sprites.other.showdown.front_default });
+    }
+    console.log(arrayEvolutionsData);
+    renderContentDialogEvolution(arrayEvolutionsData);
 }
 
 
@@ -207,7 +200,6 @@ function renderContentDialogEvolution(arrayEvolutionsData) {
     for (let i = 0; i < arrayEvolutionsData.length; i++) {
         document.getElementById('pokemonDialogMainContentShow').innerHTML += getTemplateEvolution(arrayEvolutionsData[i].name.charAt(0).toUpperCase() + arrayEvolutionsData[i].name.slice(1), arrayEvolutionsData[i].img);
     }
-
     document.getElementById('pokemonDialogMainContentShow').style = 'flex-direction: unset';
     // document.getElementById('dialog').style = 'width: 45%;';
 }
@@ -216,30 +208,33 @@ function renderContentDialogEvolution(arrayEvolutionsData) {
 function searchPokemon() {
     let input = document.getElementById('searchBar').value.toLowerCase();
     if (input === "") {
-        forRenderPokemonHomePage();
+        renderContentHomePage()
         return;
     } else if (input.length > 2) {
-        document.getElementById('content').innerHTML = " ";
-        for (let i = 0; i < arrayUrls.length; i++) {
-            fetch(arrayUrls[i])
-                .then(response => response.json())
-                .then(function (pokemon) {
-                    if (pokemon.name.toLowerCase().includes(input)) {
-                        document.getElementById('content').innerHTML += getTemplateHomePage(pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1), pokemon.sprites.other.home.front_default, pokemon.id, pokemon.types[0].type.name);
-                        input.value = " ";
-                    } else if (!pokemon.name.toLowerCase().includes(input) && i === arrayUrls.length - 1 && document.getElementById('content').innerHTML === " ") {
-                        document.getElementById('content').innerHTML = `<h2 class="noResults"> No results found for "${input}" </h2>`;
-                        input.value = " ";
-                    }
-                });
-            document.getElementById('main-loader').style = 'height: 100vh;';
-            input.value = " ";
-        }
+        foundPokemon(input);
     }
     input.value = " ";
     document.getElementById('loadMoreContainer').innerHTML = " ";
-
 }
+
+
+function foundPokemon(input) {
+    document.getElementById('content').innerHTML = " ";
+    for (let i = 0; i < pokemonsData.length; i++) {
+        if (pokemonsData[i].name.toLowerCase().includes(input)) {
+            document.getElementById('content').innerHTML += getTemplateHomePage(pokemonsData[i].name.charAt(0).toUpperCase() + pokemonsData[i].name.slice(1), pokemonsData[i].sprites.other.home.front_default, pokemonsData[i].id, pokemonsData[i].types[0].type.name);
+            input.value = " ";
+        } else if (!pokemonsData[i].name.toLowerCase().includes(input) && i === pokemonsData.length - 1 && document.getElementById('content').innerHTML === " ") {
+            document.getElementById('content').innerHTML = `<h2 class="noResults"> No results found for "${input}" </h2>`;
+            input.value = " ";
+        }
+        document.getElementById('main-loader').style = 'height: 100vh;';
+        input.value = " ";
+    }
+}
+
+
+
 
 
 

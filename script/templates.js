@@ -61,7 +61,7 @@ function getTemplateDialogPokemon(name, pokemon) {
       <div class="pokemonDialogNav">
             <button onclick="dialogShowPokemon(${pokemon.id})" class ="button-${pokemon.types[0].type.name}">About</button>
             <button onclick="showStats(${pokemon.id})" class ="button-${pokemon.types[0].type.name}"  >Stats</button>
-            <button onclick ="showEvolution('${pokemon.name},${pokemon.id}')" class ="button-${pokemon.types[0].type.name}">Evolution</button>
+            <button onclick ="showEvolution('${pokemon.name}')" class ="button-${pokemon.types[0].type.name}">Evolution</button>
         </div>
       <div class="pokemonDialogMain">
         <div class="pokemonDialogMainContent" id="pokemonDialogMainContentShow">

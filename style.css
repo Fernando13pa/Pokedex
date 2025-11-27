@@ -1,9 +1,9 @@
 body {
-    
     height: 100%;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    padding-bottom: 100px;
 }
 
 
@@ -48,6 +48,12 @@ header input {
 }
 
 
+header a{
+    text-decoration: none;
+    display: flex;
+}
+
+
 .loader {
     border: 24px solid #FFF;
     border-color: #FF3D00 #FF3D00 #fff #fff;
@@ -77,9 +83,8 @@ header input {
 
 main {
     width: 100%;
+    height: 100vh;
     background-color: #0c3947;
-    /* height: 100vh; */
-    
 }
 
 
@@ -155,6 +160,8 @@ footer {
     justify-content: center;
     margin: 0;
     padding: 0;
+    position: fixed;
+    bottom: 0;
 }
     
 
