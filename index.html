@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="style/colors.css">
 
 
-
     <script src="script.js"></script>
     <script src="script/templates.js"></script>
 </head>
@@ -19,8 +18,9 @@
 <body onload="loadContentFunc()">
     <header>
         <div class="header-div">
-            <img src="imgs/pokemon_header.png" alt="">
-            <h1>Pokedex</h1>
+            <a href="index.html"><img src="imgs/pokemon_header.png" alt="">
+                <h1>Pokedex</h1>
+            </a>
         </div>
         <input type="text" id="searchBar" onkeyup="searchPokemon()" pattern="[A-Za-z]{3,}" required
             placeholder="Search Pokemon...">
@@ -40,7 +40,7 @@
     </main>
 
     <div id="loadMoreContainer" class="loadMoreContainer">
-        
+
     </div>
 
     <footer>
