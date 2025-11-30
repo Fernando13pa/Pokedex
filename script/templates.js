@@ -21,7 +21,7 @@ function getTemplateHomePage(name, img, nummerPokemon, typ, typ2 = '') {
 
 
 
-function getTemplateloadIcon(params) {
+function getTemplateloadIcon() {
     return `
      
         <img src="icons/pikachu-loadmore.png" alt="" onclick="loadMorePokemon()">
@@ -54,8 +54,8 @@ function getButtonLoadLessTemplate() {
 
 function getTemplateDialogPokemon(name, pokemon) {
   return `
-      <div class="pokemonDialogFooter">
-        <h2> ${name} </h2>
+      <div class="pokemonDialogHeader">
+        <h2> ${name} </h2> <button onclick="closeAlbum()" class="${pokemon.types[0].type.name}">X</button>
         <img src="${pokemon.sprites.other.home.front_default}">
       </div>
       <div class="pokemonDialogNav">

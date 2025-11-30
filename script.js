@@ -1,9 +1,10 @@
-const BASE_URL = 'https://pokeapi.co/api/v2/pokemon?limit=40&offset=0';
+const BASE_URL = 'https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0';
 const BASE_URL_EVOLUTION = 'https://pokeapi.co/api/v2/evolution-chain/';
 let arrayUrls = [];
 let pokemonsData = [];
 let pokemonDataEvolution = [];
 const arrayEvolutionCounter = 19;
+let pokemonCounterAdd = 30;
 
 
 
@@ -66,8 +67,8 @@ function renderContentHomePage() {
     document.getElementById('content').innerHTML = " ";
     for (let i = 0; i < pokemonsData.length; i++) {
         document.getElementById('content').innerHTML += getTemplateHomePage(pokemonsData[i].name.charAt(0).toUpperCase() + pokemonsData[i].name.slice(1), pokemonsData[i].sprites.other.home.front_default, pokemonsData[i].id, pokemonsData[i].types[0].type.name, pokemonsData[i].types[1]?.type.name);
-        if (i === 19) {
-            document.getElementById('loadMoreContainer').innerHTML = getTemplateloadIcon(); //Pikachu Img button//
+        if (i === 29) {
+            document.getElementById('loadMoreContainer').innerHTML = getTemplateloadIcon(i); //Pikachu Img button//
             break;
         }
     }
@@ -78,18 +79,24 @@ function renderContentHomePage() {
 function loadMorePokemon() {
     document.getElementById('loadMoreContainer').innerHTML = " ";
     document.getElementById('loadMoreContainer').innerHTML = getButtonLoadMoreTemplate();   // loadingspinner//
-    setTimeout(forLoadMorePokemon, 2000);                                                   // weitere 20 Pokemon nach verzögerung//
+    setTimeout(forLoadMorePokemon, 3000);                                                   // weitere 20 Pokemon nach verzögerung//
 }
 
 
 
 function forLoadMorePokemon() {
     document.getElementById('loadMoreContainer').innerHTML = " ";           // loadingspinner löschen //
-
-    for (let i = 20; i < arrayUrls.length; i++) {                           // weitere 20 Pokemon render//
+    for (let i = pokemonCounterAdd ; i < arrayUrls.length; i++) {                           // weitere 20 Pokemon render//
         document.getElementById('content').innerHTML += getTemplateHomePage(pokemonsData[i].name.charAt(0).toUpperCase() + pokemonsData[i].name.slice(1), pokemonsData[i].sprites.other.home.front_default, pokemonsData[i].id, pokemonsData[i].types[0].type.name, pokemonsData[i].types[1]?.type.name);
+        if ( i === (pokemonCounterAdd * 2 - 1) ) {
+            document.getElementById('loadMoreContainer').innerHTML = getTemplateloadIcon();
+            pokemonCounterAdd = pokemonCounterAdd * 2; 
+            break;
+        }
+        else if (i === 1000) {
+            document.getElementById('loadMoreContainer').innerHTML += getButtonLoadLessTemplate();      //Pokeball Loadingspinner ohne animation//
+        }
     }
-    document.getElementById('loadMoreContainer').innerHTML += getButtonLoadLessTemplate();      //Pokeball Loadingspinner ohne animation//
 }
 
 
@@ -127,6 +134,12 @@ function renderContentDialog(responseToJson) {
 
 function closeShowPokemonDialog(event) {
     if (!event.target.contains(dialog)) return;
+    dialog.close();
+}
+
+
+
+function closeAlbum() {
     dialog.close();
 }
 

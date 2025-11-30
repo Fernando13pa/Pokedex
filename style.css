@@ -190,3 +190,19 @@ footer {
         height: 55px!important;
     }
 }
+
+
+@media (max-width: 320px){
+    dialog{
+        width: auto;
+        height: auto;
+    }
+    .pokemonDialogMainContent{
+        height: 55vh !important;
+    }
+    dialog img {
+    width: 150px;
+    height: 150px;
+}
+
+}
