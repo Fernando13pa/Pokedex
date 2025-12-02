@@ -3,7 +3,7 @@ const BASE_URL_EVOLUTION = 'https://pokeapi.co/api/v2/evolution-chain/';
 let arrayUrls = [];
 let pokemonsData = [];
 let pokemonDataEvolution = [];
-const arrayEvolutionCounter = 19;
+const arrayEvolutionCounter = 549;
 let pokemonCounterAdd = 30;
 
 
@@ -86,11 +86,12 @@ function loadMorePokemon() {
 
 function forLoadMorePokemon() {
     document.getElementById('loadMoreContainer').innerHTML = " ";           // loadingspinner löschen //
-    for (let i = pokemonCounterAdd ; i < arrayUrls.length; i++) {                           // weitere 20 Pokemon render//
+    for (let i = pokemonCounterAdd; i < arrayUrls.length; i++) {                           // weitere 20 Pokemon render//
         document.getElementById('content').innerHTML += getTemplateHomePage(pokemonsData[i].name.charAt(0).toUpperCase() + pokemonsData[i].name.slice(1), pokemonsData[i].sprites.other.home.front_default, pokemonsData[i].id, pokemonsData[i].types[0].type.name, pokemonsData[i].types[1]?.type.name);
-        if ( i === (pokemonCounterAdd * 2 - 1) ) {
+        if (i === (pokemonCounterAdd * 2 - 1)) {
             document.getElementById('loadMoreContainer').innerHTML = getTemplateloadIcon();
-            pokemonCounterAdd = pokemonCounterAdd * 2; 
+            forMorePokemonEvo()
+            pokemonCounterAdd = pokemonCounterAdd * 2;
             break;
         }
         else if (i === 1000) {
@@ -165,9 +166,27 @@ function renderContentStats(idArray) {
 
 
 
+async function forMorePokemonEvo() {
+    for (let i = pokemonCounterAdd; i <= arrayEvolutionCounter; i++) {
+        if (i === (pokemonCounterAdd * 2)) {
+            break;
+        }
+        else if (i === arrayEvolutionCounter) {
+            break;
+        } else {
+            let response = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + i);
+            let responseToJson = await response.json();
+            pokemonDataEvolution.push(responseToJson);
+        }
+    }
+    console.log(pokemonDataEvolution);
+}
+
+
+
 async function fetchPokemonEvolution() {
-    for (let i = 1; i <= arrayEvolutionCounter; i++) {
-        let response = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + i);
+    for (let i = 1; i <= pokemonCounterAdd; i++) {
+        let response = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + i );
         let responseToJson = await response.json();
         pokemonDataEvolution.push(responseToJson);
     }
@@ -180,7 +199,7 @@ async function showEvolution(pokemonName) {
     for (let i = 0; i < pokemonDataEvolution.length; i++) {
 
         let pokemonNameEvolution = pokemonDataEvolution[i].chain.species.name;
-        let evolvesTo = pokemonDataEvolution[i].chain.evolves_to[0].species.name;
+        let evolvesTo = pokemonDataEvolution[i].chain.evolves_to[0]?.species.name;
         let evolvesToSecond = pokemonDataEvolution[i].chain.evolves_to[0]?.evolves_to[0]?.species.name;
 
         if (pokemonName == pokemonNameEvolution || pokemonName == evolvesTo || pokemonName == evolvesToSecond) {

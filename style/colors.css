@@ -150,3 +150,99 @@
     transform: scale(1.06);
     cursor: pointer;
 }
+
+
+.fighting {
+    background-color: hotpink
+}
+
+
+.button-fighting:hover {
+    background-color: hotpink;
+    transform: scale(1.06);
+    cursor: pointer;
+}
+
+
+.psychic {
+    background-color: #F95587;
+}
+
+
+.button-psychic:hover {
+    background-color:#F95587;
+    transform: scale(1.06);
+    cursor: pointer;
+}
+
+
+.rock {
+    background-color: #B6A136;
+}
+
+
+.button-rock:hover {
+    background-color:#B6A136 ;
+    transform: scale(1.06);
+    cursor: pointer;
+}
+
+
+.ghost {
+    background-color:#735797 ;
+}
+
+
+.button-ghost:hover {
+    background-color:#735797;
+    transform: scale(1.06);
+    cursor: pointer;
+}
+
+
+.ice {
+    background-color:#96D9D6 ;
+}
+
+
+.button-ice:hover {
+    background-color:#96D9D6;
+    transform: scale(1.06);
+    cursor: pointer;
+}
+
+
+.dragon {
+    background-color:#6F35FC ;
+}
+
+
+.button-dragon:hover {
+    background-color:#6F35FC;
+    transform: scale(1.06);
+    cursor: pointer;
+}
+
+
+.dark {
+    background-color: #705746 ;
+}
+
+
+.button-dark:hover {
+    background-color:#705746;
+    transform: scale(1.06);
+    cursor: pointer;
+}
+
+
+.steel {
+    background-color:#B7B7CE ;
+}
+
+
+.button-steel:hover {
+    background-color:#B7B7CE;
+    transform: scale(1.06);
+    cursor: pointer;
+}
