@@ -56,7 +56,11 @@ function getTemplateDialogPokemon(name, pokemon) {
   return `
       <div class="pokemonDialogHeader">
         <h2> ${name} </h2> <button onclick="closeAlbum()" class="${pokemon.types[0].type.name}">X</button>
+        <div>
+        <img src="icons/pfeil-links.png" alt="" class="next-left" onclick="scrollenPrevious(${pokemon.id})">
         <img src="${pokemon.sprites.other.home.front_default}">
+        <img src="icons/pfeil-rechts.png" alt=""  class="next-rigth" onclick="scrollenNext(${pokemon.id})">
+        </div>
       </div>
       <div class="pokemonDialogNav">
             <button onclick="dialogShowPokemon(${pokemon.id})" class ="button-${pokemon.types[0].type.name}">About</button>

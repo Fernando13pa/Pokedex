@@ -48,7 +48,7 @@ header input {
 }
 
 
-header a{
+header a {
     text-decoration: none;
     display: flex;
 }
@@ -81,10 +81,19 @@ header a{
 }
 
 
+main span {
+    width: 0%;
+    height: 0%;
+}
+
+
 main {
     width: 100%;
     height: 100vh;
     background-color: #0c3947;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 }
 
 
@@ -94,6 +103,8 @@ main section {
     gap: 20px;
     padding: 20px;
     justify-content: center;
+    max-width: 1900px;
+
 }
 
 
@@ -107,7 +118,7 @@ dialog {
 
     flex-direction: column;
     align-items: center;
-    
+
     border: none;
     border-radius: 10px;
     padding: 20px;
@@ -118,6 +129,26 @@ dialog {
 dialog img {
     width: 200px;
     height: 200px;
+}
+
+
+.next-left {
+    width: 20px;
+    height: 30px;
+    position: absolute;
+    left: 5px;
+    top: 155px;
+    cursor: pointer;
+}
+
+
+.next-rigth {
+    width: 20px;
+    height: 30px;
+    position: absolute;
+    right: 5px;
+    top: 155px;
+    cursor: pointer;
 }
 
 
@@ -163,22 +194,30 @@ footer {
     position: fixed;
     bottom: 0;
 }
+
+
+/* @media (max-width: 1990px) {
     
+} */
+
 
 @media screen and (max-width: 500px) {
-   header {
+    header {
         flex-direction: column;
         height: auto;
         padding: 10px 0;
     }
+
     .header-div {
         margin: 0;
         gap: 0;
     }
+
     header input {
         margin: 10px 0 0 0;
-    } 
-   .pokemonDialogMainContent {
+    }
+
+    .pokemonDialogMainContent {
         flex-direction: column !important;
     }
 }
@@ -187,22 +226,24 @@ footer {
 @media (max-width: 600px) {
     .evolutionCard img {
         width: 55px !important;
-        height: 55px!important;
+        height: 55px !important;
     }
 }
 
 
-@media (max-width: 320px){
-    dialog{
+@media (max-width: 320px) {
+    dialog {
         width: auto;
         height: auto;
     }
-    .pokemonDialogMainContent{
+
+    .pokemonDialogMainContent {
         height: 55vh !important;
     }
+
     dialog img {
-    width: 150px;
-    height: 150px;
-}
+        width: 150px;
+        height: 150px;
+    }
 
 }

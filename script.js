@@ -186,7 +186,7 @@ async function forMorePokemonEvo() {
 
 async function fetchPokemonEvolution() {
     for (let i = 1; i <= pokemonCounterAdd; i++) {
-        let response = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + i );
+        let response = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + i);
         let responseToJson = await response.json();
         pokemonDataEvolution.push(responseToJson);
     }
@@ -227,6 +227,7 @@ function filterDataEvolution(pokemonNameEvolution, evolvesTo, evolvesToSecond) {
 }
 
 
+
 function renderContentDialogEvolution(arrayEvolutionsData) {
     document.getElementById('pokemonDialogMainContentShow').innerHTML = " ";
     for (let i = 0; i < arrayEvolutionsData.length; i++) {
@@ -235,6 +236,7 @@ function renderContentDialogEvolution(arrayEvolutionsData) {
     document.getElementById('pokemonDialogMainContentShow').style = 'flex-direction: unset';
     // document.getElementById('dialog').style = 'width: 45%;';
 }
+
 
 
 function searchPokemon() {
@@ -248,6 +250,7 @@ function searchPokemon() {
     input.value = " ";
     document.getElementById('loadMoreContainer').innerHTML = " ";
 }
+
 
 
 function foundPokemon(input) {
@@ -264,6 +267,28 @@ function foundPokemon(input) {
         input.value = " ";
     }
 }
+
+
+
+function scrollenPrevious(id) {
+    if (id === 1) {
+
+    } else {
+        renderContentDialog(id - 2)
+    }
+
+}
+
+
+
+function scrollenNext(id) {
+    if (id > pokemonCounterAdd - 1) {
+
+    } else {
+        renderContentDialog(id)
+    }
+}
+
 
 
 
