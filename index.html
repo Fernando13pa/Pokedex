@@ -17,13 +17,15 @@
 
 <body onload="loadContentFunc()">
     <header>
-        <div class="header-div">
-            <a href="index.html"><img src="imgs/pokemon_header.png" alt="">
-                <h1>Pokedex</h1>
-            </a>
+        <div class="header-content">
+            <div class="header-div">
+                <a href="index.html"><img src="imgs/pokemon_header.png" alt="">
+                    <h1>Pokedex</h1>
+                </a>
+            </div>
+            <input type="text" id="searchBar" onkeyup="searchPokemon()" pattern="[A-Za-z]{3,}" required
+                placeholder="Search Pokemon...">
         </div>
-        <input type="text" id="searchBar" onkeyup="searchPokemon()" pattern="[A-Za-z]{3,}" required
-            placeholder="Search Pokemon...">
     </header>
 
     <dialog id="dialog" onclick="closeShowPokemonDialog(event)">
