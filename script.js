@@ -1,105 +1,38 @@
-const BASE_URL = 'https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0';
-const BASE_URL_EVOLUTION = 'https://pokeapi.co/api/v2/evolution-chain/';
 let arrayUrls = [];                                                 // array mit den urls der einzelnen pokemon //
 let array = [];                                                     // array mit den namen und urls der pokemon // 
 let pokemonsData = [];                                          // array mit den daten der einzelnen pokemon //
 
 let pokemonDataEvolution = [];                                  // array mit den daten der einzelnen pokemon evolutionen //
 const arrayEvolutionCounter = 549;                           // anzahl der evolutionen im pokeapi //
-let pokemonCounterAdd = 31;                                // anfangsanzahl der pokemon die geladen werden //
+let pokemonCounterAdd = 20;                                 // anfangsanzahl der pokemon die geladen werden //
 
 
+function loadMorePokemon() {                                          // funktion load more pokemon (icon Pikachu) //
+    document.getElementById('loadMoreContainer').innerHTML = " ";
+    document.getElementById('loadMoreContainer').innerHTML = getButtonLoadMoreTemplate();   // loadingspinner drehen//
+    forMoreDataPokemon();                                               // fetch daten der einzelnen pokemon für load more bzw mehrere pokemons laden //
+    setTimeout(forLoadMorePokemon, 3000);                                                   // weitere  Pokemon nach verzögerung//
 
-async function loadContentFunc() {
-    await fetchData();
-    loadingSpinner();
 }
 
-
-
-async function fetchData() {
-    let response = await fetch(BASE_URL + 'json');
-    let responseToJson = await response.json();
-
-    array = responseToJson.results;
-    filterUrl(array)
-    await fetchPokemonEvolution()
-}
-
-
-
-async function filterUrl(filterHomePageUrls) {
-    let urls = filterHomePageUrls.map(element => element.url);
-    arrayUrls = urls;
-    await forRenderPokemonHomePage();
-}
-
-
-
-async function forRenderPokemonHomePage() {
-    for (let i = 0; i < arrayUrls.length; i++) {
-        if (i === pokemonCounterAdd ) {
-            break;   
-        }
-        await fetchUrl(i)
-    }
-}
-
-
-
-async function forMoreDataPokemon() {
-    for (let i = pokemonCounterAdd; i < arrayUrls.length; i++) {
-        if (i === (pokemonCounterAdd * 2)) {
+async function forMoreDataPokemon() {                   // for schleife zum fetchen der daten der einzelnen pokemon für load more bzw mehrere pokemons laden //
+    for (let i = pokemonCounterAdd; i < arrayUrls.length; i++) {                  // schleife durch alle urls ab der variable pokemonCounterAdd [wird zuerst erhöht *2] //
+        if (i === (pokemonCounterAdd * 2)) {                                     // wenn i gleich variable(pokemonCounterAdd[20] * 2 = 40), dann break //
             break;
-        
+
         } else {
             await fetchUrl(i)
-        }       
+        }
     }
-    console.log(pokemonsData);
-    
-    
 }
-
-
-
-async function fetchUrl(i) {
-    let response = await fetch(arrayUrls[i]);
-    let responseToJson = await response.json();
-    pokemonsData.push(responseToJson);
-    
-}
-
-
-
-function loadingSpinner() {
-    document.getElementById('main-loader').style = 'align-content: center;';
-    document.getElementById('content').innerHTML = getlopadingspinnerTemplate();
-    setTimeout(renderContentHomePage, 2000);
-}
-
-
-
-
-
-
-
-function loadMorePokemon() {
-    document.getElementById('loadMoreContainer').innerHTML = " ";
-    document.getElementById('loadMoreContainer').innerHTML = getButtonLoadMoreTemplate();   // loadingspinner//
-    forMoreDataPokemon();
-    setTimeout(forLoadMorePokemon, 2000);                                                   // weitere 20 Pokemon nach verzögerung//
-}
-
-
 
 function forLoadMorePokemon() {
     document.getElementById('loadMoreContainer').innerHTML = " ";           // loadingspinner löschen //
-    for (let i = pokemonCounterAdd; i < arrayUrls.length; i++) {                           // weitere 20 Pokemon render//
+    for (let i = pokemonCounterAdd; i < arrayUrls.length; i++) {                           // weitere  Pokemon render//
         document.getElementById('content').innerHTML += getTemplateHomePage(pokemonsData[i].name.charAt(0).toUpperCase() + pokemonsData[i].name.slice(1), pokemonsData[i].sprites.other.home.front_default, pokemonsData[i].id, pokemonsData[i].types[0].type.name, pokemonsData[i].types[1]?.type.name);
         if (i === (pokemonCounterAdd * 2 - 1)) {
-            document.getElementById('loadMoreContainer').innerHTML = getTemplateloadIcon();
-            pokemonCounterAdd = pokemonCounterAdd * 2;
+            document.getElementById('loadMoreContainer').innerHTML = getTemplateloadIcon();         //Pikachu Img button hinzufügen//
+            pokemonCounterAdd = pokemonCounterAdd * 2;                                          // variable pokemonCounterAdd verdoppeln //
             break;
         }
         else if (i === 1000) {
@@ -108,101 +41,40 @@ function forLoadMorePokemon() {
     }
 }
 
-
+///////////////////////                                                                              /////////////////////////////////////////////
 
 function animation() {
     document.getElementById('loadLessSpinner').style = "animation: spin 1s linear infinite;";     //Pokeball animation (drehen) add//
     setTimeout(reloadPage, 2000);                       // nach verzögerung Seite wiederladen//
 }
 
-
-
 function reloadPage() {
     // location.reload();
     window.location.reload(true);     //seite wiederladen//
 }
-
-
 
 function dialogShowPokemon(pokemonNummer) {
     renderContentDialog(pokemonNummer - 1)
     dialog.showModal();
 }
 
-
-
-function renderContentDialog(responseToJson) {
-    document.getElementById('dialog').innerHTML = " ";
-    document.getElementById('dialog').classList = " ";
-    // document.getElementById('dialog').style = 'width: 35%;';
-    document.getElementById('dialog').innerHTML = getTemplateDialogPokemon(pokemonsData[responseToJson].name.charAt(0).toUpperCase() + pokemonsData[responseToJson].name.slice(1), pokemonsData[responseToJson]);
-    document.getElementById('dialog').classList.add(pokemonsData[responseToJson].types[0].type.name);
-}
-
-
-
 function closeShowPokemonDialog(event) {
     if (!event.target.contains(dialog)) return;
     dialog.close();
 }
 
-
-
 function closeAlbum() {
     dialog.close();
 }
-
-
 
 function showStats(id) {
     let idArray = id - 1;
     renderContentStats(idArray);
 }
 
-
-
-function renderContentStats(idArray) {
-    let statPokemon = pokemonsData[idArray]
-    let stats = statPokemon.stats.map(element => element);
-    document.getElementById('pokemonDialogMainContentShow').innerHTML = " ";
-    document.getElementById('pokemonDialogMainContentShow').style = 'flex-direction: ';
-    // document.getElementById('dialog').style = 'width: 35%;';
-    for (let i = 0; i < stats.length; i++) {
-        document.getElementById('pokemonDialogMainContentShow').innerHTML += getTemplateStats(stats[i], statPokemon);
-    }
-}
-
-
-
-async function forMorePokemonEvo() {
-    for (let i = pokemonCounterAdd; i <= arrayEvolutionCounter; i++) {
-        if (i === (pokemonCounterAdd * 2)) {
-            break;
-        }
-        else if (i === arrayEvolutionCounter) {
-            break;
-        } else {
-            let response = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + i);
-            let responseToJson = await response.json();
-            pokemonDataEvolution.push(responseToJson);
-        }
-    }
-}
-
-
-
-async function fetchPokemonEvolution() {
-    for (let i = 1; i <= pokemonCounterAdd; i++) {
-        let response = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + i);
-        let responseToJson = await response.json();
-        pokemonDataEvolution.push(responseToJson);
-    }
-}
-
-
+/////////////////////////                                                                              /////////////////////////////////////////////
 
 async function showEvolution(pokemonName) {
-    // forMorePokemonEvo();
     for (let i = 0; i < pokemonDataEvolution.length; i++) {
 
         let pokemonNameEvolution = pokemonDataEvolution[i].chain.species.name;
@@ -214,38 +86,42 @@ async function showEvolution(pokemonName) {
             break;
         }
     }
+    await forMorePokemonEvo()
 }
 
+async function forMorePokemonEvo() {
+    for (let i = pokemonDataEvolution.length; i < arrayEvolutionCounter; i++) {
+        if (pokemonDataEvolution.length ===  pokemonsData.length)  {
+            break;
+        }
+        else if (i === arrayEvolutionCounter) {
+            break;
+        } else {
+            let response = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + i);
+            let responseToJson = await response.json();
+            pokemonDataEvolution.push(responseToJson);
+        }
+    }
 
+}
 
 function filterDataEvolution(pokemonNameEvolution, evolvesTo, evolvesToSecond) {
-    
-    let findPokemon = pokemonsData.find(element => element["name"] === pokemonNameEvolution);
-    let arrayEvolutionsData = [{ name: findPokemon.name, img: findPokemon.sprites.other.showdown.front_default }];
+    let arrayEvolutionsData = [];
+    if (pokemonNameEvolution) {
+        let findPokemon = pokemonsData.find(element => element["name"] === pokemonNameEvolution);
+        arrayEvolutionsData = [{ name: findPokemon.name, img: findPokemon.sprites.other.showdown.front_default }];
+    }
     if (evolvesTo) {
         let findPokemon2 = pokemonsData.find(element => element["name"] === evolvesTo);
         arrayEvolutionsData.push({ name: findPokemon2.name, img: findPokemon2.sprites.other.showdown.front_default });
     }
-     if (evolvesToSecond) {
+    if (evolvesToSecond) {
         let findPokemon3 = pokemonsData.find(element => element["name"] === evolvesToSecond)
         arrayEvolutionsData.push({ name: findPokemon3.name, img: findPokemon3.sprites.other.showdown.front_default });
     }
 
     renderContentDialogEvolution(arrayEvolutionsData);
 }
-
-
-
-function renderContentDialogEvolution(arrayEvolutionsData) {
-    document.getElementById('pokemonDialogMainContentShow').innerHTML = " ";
-    for (let i = 0; i < arrayEvolutionsData.length; i++) {
-        document.getElementById('pokemonDialogMainContentShow').innerHTML += getTemplateEvolution(arrayEvolutionsData[i].name.charAt(0).toUpperCase() + arrayEvolutionsData[i].name.slice(1), arrayEvolutionsData[i].img);
-    }
-    document.getElementById('pokemonDialogMainContentShow').style = 'flex-direction: unset';
-    // document.getElementById('dialog').style = 'width: 45%;';
-}
-
-
 
 function searchPokemon() {
     let input = document.getElementById('searchBar').value.toLowerCase();
@@ -258,8 +134,6 @@ function searchPokemon() {
     input.value = " ";
     document.getElementById('loadMoreContainer').innerHTML = " ";
 }
-
-
 
 function foundPokemon(input) {
     document.getElementById('content').innerHTML = " ";
@@ -276,8 +150,6 @@ function foundPokemon(input) {
     }
 }
 
-
-
 function scrollenPrevious(id) {
     if (id === 1) {
 
@@ -286,8 +158,6 @@ function scrollenPrevious(id) {
     }
 
 }
-
-
 
 function scrollenNext(id) {
     if (id > pokemonCounterAdd - 1) {
