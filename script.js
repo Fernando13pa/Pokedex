@@ -5,12 +5,13 @@ let pokemonsData = [];                                          // array mit den
 let pokemonDataEvolution = [];                                  // array mit den daten der einzelnen pokemon evolutionen //
 const arrayEvolutionCounter = 549;                           // anzahl der evolutionen im pokeapi //
 let pokemonCounterAdd = 20;                                 // anfangsanzahl der pokemon die geladen werden //
+let arrayEvolutionsData = [];
 
 
-function loadMorePokemon() {                                          // funktion load more pokemon (icon Pikachu) //
+async function loadMorePokemon() {                                          // funktion load more pokemon (icon Pikachu) //
     document.getElementById('loadMoreContainer').innerHTML = " ";
     document.getElementById('loadMoreContainer').innerHTML = getButtonLoadMoreTemplate();   // loadingspinner drehen//
-    forMoreDataPokemon();                                               // fetch daten der einzelnen pokemon für load more bzw mehrere pokemons laden //
+    await forMoreDataPokemon();                                               // fetch daten der einzelnen pokemon für load more bzw mehrere pokemons laden //
     setTimeout(forLoadMorePokemon, 3000);                                                   // weitere  Pokemon nach verzögerung//
 
 }
@@ -27,6 +28,7 @@ async function forMoreDataPokemon() {                   // for schleife zum fetc
 }
 
 function forLoadMorePokemon() {
+    
     document.getElementById('loadMoreContainer').innerHTML = " ";           // loadingspinner löschen //
     for (let i = pokemonCounterAdd; i < arrayUrls.length; i++) {                           // weitere  Pokemon render//
         document.getElementById('content').innerHTML += getTemplateHomePage(pokemonsData[i].name.charAt(0).toUpperCase() + pokemonsData[i].name.slice(1), pokemonsData[i].sprites.other.home.front_default, pokemonsData[i].id, pokemonsData[i].types[0].type.name, pokemonsData[i].types[1]?.type.name);
@@ -85,13 +87,16 @@ async function showEvolution(pokemonName) {
             filterDataEvolution(pokemonNameEvolution, evolvesTo, evolvesToSecond);
             break;
         }
+        if (i === pokemonDataEvolution.length -1) {
+            await forMorePokemonEvo();  
+            i = 0;
+        }
     }
-    await forMorePokemonEvo()
 }
 
 async function forMorePokemonEvo() {
     for (let i = pokemonDataEvolution.length; i < arrayEvolutionCounter; i++) {
-        if (pokemonDataEvolution.length ===  pokemonsData.length)  {
+        if (pokemonDataEvolution.length ===  arrayEvolutionCounter)  {
             break;
         }
         else if (i === arrayEvolutionCounter) {
@@ -102,25 +107,49 @@ async function forMorePokemonEvo() {
             pokemonDataEvolution.push(responseToJson);
         }
     }
-
+    
 }
 
 function filterDataEvolution(pokemonNameEvolution, evolvesTo, evolvesToSecond) {
-    let arrayEvolutionsData = [];
     if (pokemonNameEvolution) {
-        let findPokemon = pokemonsData.find(element => element["name"] === pokemonNameEvolution);
-        arrayEvolutionsData = [{ name: findPokemon.name, img: findPokemon.sprites.other.showdown.front_default }];
+        Evolution(pokemonNameEvolution);
     }
     if (evolvesTo) {
-        let findPokemon2 = pokemonsData.find(element => element["name"] === evolvesTo);
-        arrayEvolutionsData.push({ name: findPokemon2.name, img: findPokemon2.sprites.other.showdown.front_default });
+        pokemonEvolvesTo(evolvesTo);
     }
     if (evolvesToSecond) {
-        let findPokemon3 = pokemonsData.find(element => element["name"] === evolvesToSecond)
-        arrayEvolutionsData.push({ name: findPokemon3.name, img: findPokemon3.sprites.other.showdown.front_default });
+        pokemonEvolvesToSecond(evolvesToSecond);
+    }
+    renderContentDialogEvolution(arrayEvolutionsData);
+    arrayEvolutionsData = [];
+}
+
+function Evolution(pokemonNameEvolution) {
+    let findPokemon = pokemonsData.find(element => element["name"] === pokemonNameEvolution);
+
+    if (findPokemon === undefined) {
+    } else {
+        arrayEvolutionsData = [{ name: findPokemon.name, img: findPokemon.sprites.other.showdown.front_default }];
     }
 
-    renderContentDialogEvolution(arrayEvolutionsData);
+}
+
+function pokemonEvolvesTo(evolvesTo) {
+    let findPokemon2 = pokemonsData.find(element => element["name"] === evolvesTo);
+
+    if (findPokemon2 === undefined) {
+    } else {
+        arrayEvolutionsData.push({ name: findPokemon2.name, img: findPokemon2.sprites.other.showdown.front_default });
+    }
+}
+
+function pokemonEvolvesToSecond(evolvesToSecond) {
+    let findPokemon3 = pokemonsData.find(element => element["name"] === evolvesToSecond);
+    
+    if (findPokemon3 === undefined) {
+    }else {
+        arrayEvolutionsData.push({ name: findPokemon3.name, img: findPokemon3.sprites.other.showdown.front_default });
+    }
 }
 
 function searchPokemon() {
