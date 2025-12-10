@@ -8,7 +8,7 @@ function getlopadingspinnerTemplate() {
 
 function getTemplateHomePage(name, img, nummerPokemon, typ, typ2 = '') {
   return `
-    <div class="pokemon-card  ${typ}"  onclick="dialogShowPokemon(${nummerPokemon})"> 
+    <div class="pokemon-card  ${typ}"  onclick="dialogShowPokemon(${nummerPokemon}); fetchPokemonEvolutionData('${pokemonsData[nummerPokemon - 1].species.url}');"> 
        <b>Nr.${nummerPokemon}</b><h3> ${name} </h3>
          <img src="${img}">
           <div class="typeContainer">
@@ -57,15 +57,15 @@ function getTemplateDialogPokemon(name, pokemon) {
       <div class="pokemonDialogHeader">
         <h2> ${name} </h2> <button onclick="closeAlbum()" class="${pokemon.types[0].type.name}">X</button>
         <div>
-        <img src="icons/pfeil-links.png" alt="" class="next-left" onclick="scrollenPrevious(${pokemon.id})">
+        <img src="icons/pfeil-links.png" alt="" class="next-left" onclick="scrollenPrevious(${pokemon.id}, '${pokemonsData[pokemon.id - 2]?.species.url}');">
         <img src="${pokemon.sprites.other.home.front_default}">
-        <img src="icons/pfeil-rechts.png" alt=""  class="next-rigth" onclick="scrollenNext(${pokemon.id})">
+        <img src="icons/pfeil-rechts.png" alt=""  class="next-rigth" onclick="scrollenNext(${pokemon.id}, '${pokemonsData[pokemon.id]?.species.url}');">
         </div>
       </div>
       <div class="pokemonDialogNav">
             <button onclick="dialogShowPokemon(${pokemon.id})" class ="button-${pokemon.types[0].type.name}">About</button>
             <button onclick="showStats(${pokemon.id})" class ="button-${pokemon.types[0].type.name}"  >Stats</button>
-            <button onclick ="showEvolution('${pokemon.name}')" class ="button-${pokemon.types[0].type.name}">Evolution</button>
+            <button onclick ="showEvolution('${pokemon.name}')" class="button-${pokemon.types[0].type.name}">Evolution</button>
         </div>
       <div class="pokemonDialogMain">
         <div class="pokemonDialogMainContent" id="pokemonDialogMainContentShow">

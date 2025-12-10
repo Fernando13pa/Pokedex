@@ -10,7 +10,7 @@ async function fetchData() {                       // fetch daten der homepage /
 
     array = responseToJson.results;                      // array mit den namen und urls der pokemon //
     filterUrl(array)                ;                           // filtert nur die urls der pokemon für die homepage(20pokemons) //
-    await fetchPokemonEvolution();                               // fetch daten der pokemon evolutionen(nur für  die ersten 20 Pokemons Links) //
+    // await fetchPokemonEvolution();                               // fetch daten der pokemon evolutionen(nur für  die ersten 20 Pokemons Links) //
 }
 
 async function filterUrl(filterHomePageUrls) {                      // funktion filtert nur die urls der pokemon für die homepage aus const BASE_URL//
