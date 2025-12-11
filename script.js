@@ -38,12 +38,10 @@ function forLoadMorePokemon() {
         if (i === (pokemonCounterAdd * 2 - 1)) {
             document.getElementById('loadMoreContainer').innerHTML = getTemplateloadIcon();         //Pikachu Img button hinzufügen//
             pokemonCounterAdd = pokemonCounterAdd * 2;                                          // variable pokemonCounterAdd verdoppeln //
-            console.log(pokemonCounterAdd);
             break;
         }
         if (i > 998) {
             pokemonCounterAdd = 1000;
-            console.log(pokemonCounterAdd);
             document.getElementById('loadMoreContainer').innerHTML += getButtonLoadLessTemplate();      //Pokeball Loadingspinner ohne animation//
             break;
         }
